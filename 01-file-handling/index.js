@@ -1,5 +1,5 @@
 const fs = require('fs');
-const filePath = './todo/tasks.json';
+const filePath = './01-file-handling/tasks.json';
 
 const loadTask = () => {
     try {
@@ -27,6 +27,17 @@ const addTask = (task) => {
 const listTasks = () => {
     const tasks = loadTask();
     tasks.forEach((task, index) => console.log(`${index + 1}. ${task.task}`));
+}
+
+const removeTask = (index) => {
+    const tasks = loadTask();
+    if(index > 0 && index <= tasks.length){
+        const task = tasks.splice(index - 1, 1);
+        saveTasks(tasks);
+        console.log(`Task removed: ${task[0].task}`);
+    }else{
+        console.log('Invalid task number');
+    }
 }
 
 const command = process.argv[2];
